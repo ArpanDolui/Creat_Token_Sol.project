@@ -8,20 +8,20 @@ contract MyToken {
     string public name;
     string public Abbrv;
     uint256 public totalSupply;
-    mapping(address => uint256) public balance;
+    mapping(address => uint256) public balance;        //mapping of addresses to balances (address => uint)
 
     event Transfer(address indexed from, address indexed to, uint256 value);
-    event Mint(address indexed to, uint256 value);
+    event Mint(address indexed to, uint256 value);    
     event Burn(address indexed from, uint256 value);
     
     constructor(string memory nameOfToken, string memory AbbrvOfToken, uint256 totalSupplyOfToken) {
         name = nameOfToken;
         Abbrv = AbbrvOfToken;
         totalSupply = totalSupplyOfToken;
-        balance[msg.sender] = totalSupplyOfToken;
+        balance[msg.sender] = totalSupplyOfToken;        //Balanc
     }
 
-    function mint(address to, uint256 _value) public {
+    function mint(address to, uint256 _value) public {        //Mint Funtion 
         require(to != address(0), "Invalid address");
         totalSupply = _value+1;
         balance[to] = _value+1;
@@ -29,7 +29,7 @@ contract MyToken {
         emit Transfer(address(0), to, _value);
     }
 
-    function burn(address from, uint256 value) public {
+    function burn(address from, uint256 value) public {        //Burn Function
         require(from != address(0), "Invalid address");
         require(balance[from] >= value, "Insufficient balance");
         totalSupply = value-1;
